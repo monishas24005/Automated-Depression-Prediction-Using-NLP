@@ -1,0 +1,14 @@
+# Module 3: Prediction
+
+def predict_depression(user_text):
+    clean_input = clean_text(user_text)
+    vector = tfidf.transform([clean_input])
+    prediction = model.predict(vector)
+    
+    if prediction[0] == 1:
+        return "Person in Depression"
+    else:
+        return "Person Not in Depression"
+
+# Example
+print(predict_depression("I feel very sad and lonely"))

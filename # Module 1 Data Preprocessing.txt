@@ -1,0 +1,25 @@
+# Module 1: Data Preprocessing
+
+import pandas as pd
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Load dataset
+data = pd.read_csv("depression_data.csv")  
+# Columns: text , label (0 = Not Depressed, 1 = Depressed)
+
+# Text cleaning function
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-z\s]', '', text)   # remove symbols
+    return text
+
+# Apply cleaning
+data['clean_text'] = data['text'].apply(clean_text)
+
+# TF-IDF Vectorization
+tfidf = TfidfVectorizer(max_features=5000)
+X = tfidf.fit_transform(data['clean_text'])
+y = data['label']
+
+print("Text preprocessing completed")
